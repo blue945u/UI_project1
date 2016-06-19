@@ -1,0 +1,455 @@
+body {
+  /*position: relative;*/
+  margin: 0;
+  padding: 0;
+  background-image: url(Img/theflyingdutchman.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  font-family: cursive;
+}
+/* Start of front page */
+
+#front-page {
+  position: absolute;
+  margin-top: 0%;
+  margin-right: 0%;
+  height: 100%;
+  width: 100%;
+  /*background-color: blue;*/
+}
+
+#front-page .header {
+  width: 100%;
+  height: 150px;
+  /*background-color: green;*/
+}
+
+#front-page .header .titel {
+  display: inline-block;
+  margin-left: 80px;
+  text-align: center;
+  font-family: Cursive;
+}
+
+#front-page .top-right-box {
+  padding: 10px;
+  float: right;
+}
+
+#front-page .top-right-box .user-box {
+  display: inline-block;
+  text-align: right;
+}
+
+#front-page .top-right-box .icon-box {
+  display: inline-block;
+}
+
+#front-page .top-right-box .icon-box .VIP-Login {
+  height: 33px;
+  width: 33px;
+  display: inline-block;
+  background-image: url(Img/Icon-user.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+#front-page .top-right-box .icon-box .flag {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+#front-page .top-right-box .icon-box .flag.flag-swedish {
+  height: 35px;
+  width: 35px;
+  background-image: url(Img/sweden-flag.png);
+}
+
+#front-page .top-right-box .icon-box .flag.flag-english {
+  height: 30px;
+  width: 30px;
+  background-image: url(Img/UnitedKingdom.ico);
+}
+
+#front-page #introduction-container {
+  margin: 0 100px;
+  max-width: 700px;
+  font-size: 18px;
+}
+
+/* end of front page */
+
+/* Start of popup window  */
+
+.popup-window {
+  position: absolute;
+  padding: 25px;
+  min-height: 250px;
+  width: 500px;
+  margin: 200px 400px 0;
+  background-image: url(Img/oldpaper.jpg);
+}
+
+.popup-window .head {
+  padding-top: 40px;
+  font-family: cursive;
+  font-size: 30px;
+  text-align: center;
+}
+
+.popup-window.login .message-error {
+  color: red;
+  font-weight: bold;
+}
+
+.popup-window.login .user {
+  position: absolute;
+  padding-top: 40px;
+  padding-left: 50px;
+  width: 400px;
+}
+
+.popup-window.login .user .userLabel {
+  padding-right: 4px;
+  display: inline-block;
+  width: 120px;
+}
+
+.popup-window.login .password {
+  padding-top: 70px;
+  padding-left: 50px;
+}
+
+.popup-window.login .password .passLabel {
+  padding-right: 4px;
+  display: inline-block;
+  width: 120px;
+}
+
+.popup-window .profile-info {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* End of popup window */
+
+/* Start of beer list */
+
+#beer-list {
+  position: absolute;
+  margin-top: 85vh;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 15%;
+  width: 90%;
+  border: 2px solid black;
+  background-image: url(Img/shelf.jpg);
+  background-size: 100% 110px;
+  -webkit-transition: all 0.5s; /* Safari, Chrome*/
+  transition: all 0.5s; /* internet explorer */
+  -moz-transition: all 0.5s; /* firefox */
+}
+
+#beer-list.expanded {
+  margin-top: 144px;
+  height: 580px;
+  overflow-y: auto;
+}
+
+#beer-list .top-shelf {
+  position: relative;
+  padding-top: 25px;
+  height: 85px;
+  background-image: url(Img/shelf.jpg);
+  background-size: 100% 100%;
+}
+
+#beer-list .top-shelf .beer-button {
+  position: absolute;
+  display: inline-block;
+  width: 25%;
+  margin-left: 37%;
+  text-align: center;
+  font-size: 25px;
+  font-family: cursive;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding-bottom: 5px;
+  border-radius: 7px;
+}
+
+#beer-list .top-shelf .beer-button:hover{
+  cursor: pointer;
+  font-size: 30px;
+}
+
+#beer-list .top-shelf .filter-button {
+  position: absolute;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-left: 140px;
+  background-image: url(Img/searchicon.png);
+  background-size: cover;
+}
+
+#beer-list .top-shelf .filter-button:hover {
+  -webkit-transform: scale(1.2,1.2);
+  -moz-transform: scale(1.2,1.2);
+  -ms-transform: scale(1.2,1.2);
+  transform: scale(1.2,1.2);
+  cursor: pointer;
+}
+
+.searchBeer.animated.bounceIn {
+  animation-duration: 1.2s;
+}
+
+#beer-list .filter-shelf {
+  height: 0px;
+  padding: 0 130px;
+  background-image: url(Img/shelf.jpg);
+  background-size: 100% 100%;
+  -webkit-transition: all 0.5s; /* Safari, Chrome*/
+  transition: all 0.5s; /* internet explorer */
+  -moz-transition: all 0.5s; /* firefox */
+}
+#beer-list .filter-shelf.expanded {
+  padding-top: 25px;
+  height: 85px;
+}
+
+#beer-list .filter-shelf div {
+  display: inline-block;
+}
+
+#beer-list .filter-shelf .searchBeer {
+  width: 200px;
+}
+
+
+#beer-list .item {
+  padding-top: 25px;
+  padding-left: 120px;
+  height: 85px;
+  background-image: url(Img/shelf.jpg);
+  background-size: 100% 100%;
+  /*background-color: blue;*/
+}
+
+/*
+#beer-list .item .beer-text {
+  margin-left: 0%;
+  padding: 10px;
+  padding-top: 14px;
+  font-size: 20px;
+}
+*/
+
+#beer-list .item .beer {
+  display: inline-block;
+  height: 50px;
+  width: 400px;
+}
+
+#beer-list .item .beerImg {
+  display: inline-block;
+  float: left;
+  width: 50px;
+  height: 50px;
+  background-image: url(http://www.beer100.com/images/beermug.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: blue;
+}
+
+#beer-list .item .beer .beerText {
+  font-size: 20px;
+  padding-top: 13px;
+  padding-left: 60px;
+}
+
+
+#beer-list .item .alcoholVol {
+  position: absolute;
+  margin-left: 10px;
+  display: inline-block;
+  height: 50px;
+  width: 100px;
+}
+
+#beer-list .item .alcoholVol .alcoholVolImg {
+  display: inline-block;
+  float: left;
+  width: 50px;
+  height: 50px;
+  background-image: url(Img/percentageicon.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#beer-list .item .alcoholVol .alcoholVolText {
+  font-size: 18px;
+  padding-top: 14px;
+}
+
+#beer-list .item .country {
+  position: absolute;
+  margin-left: 125px;
+  display: inline-block;
+  height: 50px;
+  width: 200px;
+}
+
+#beer-list .item .country .countryImg {
+  display: inline-block;
+  float: left;
+  width: 50px;
+  height: 50px;
+  background-image: url(Img/mapicon.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#beer-list .item .country .countryName {
+  font-size: 18px;
+  padding-top: 14px;
+}
+
+#beer-list .item .beerInfo {
+  position: absolute;
+  margin-left: 350px;
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+}
+
+#beer-list .item .beerInfo .beerInfoImg {
+  position: absolute;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-image: url(Img/infoicon.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#beer-list .item .beerInfo .beerInfoImg:hover {
+  -webkit-transform: scale(1.2,1.2);
+  -moz-transform: scale(1.2,1.2);
+  -ms-transform: scale(1.2,1.2);
+  transform: scale(1.2,1.2);
+  cursor: pointer;
+}
+
+.beerInfoText.animated.bounceIn {
+  animation-duration: 1s;
+}
+
+#beer-list .item .beerInfo .beerInfoText {
+  font-size: 25px;
+  padding-top: 15px;
+  margin-top: 10px;
+  margin-left: 50px;
+  height: 200px;
+  width: 200px;
+  background-image: url(Img/oldpaper.jpg);
+}
+
+.label-organic {
+  background: green;
+}
+
+.label-out-of-stock {
+  background: red;
+  margin-left: 110px;
+}
+
+/* End of beer list */
+
+
+/* Start of shopping cart */
+
+#shopping-cart-tab {
+  position: absolute;
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  top: 144px;
+  right: 0px;
+  background-image: url(Img/oldpaper.jpg);
+  -webkit-transition: all 0.5s; /* Safari, Chrome*/
+  transition: all 0.5s; /* internet explorer */
+  -moz-transition: all 0.5s; /* firefox */
+  cursor: pointer;
+}
+
+#shopping-cart-tab span {
+  width: 1em;
+  letter-spacing: 5px;
+}
+
+#shopping-cart-tab.expanded {
+  right: 390px;
+}
+
+#shopping-cart {
+  position: absolute;
+  top: 144px;
+  right: -390px;
+  min-height: 400px;
+  width: 350px;
+  padding: 20px;
+  background-image: url(Img/oldpaper.jpg);
+  background-size: cover;
+  -webkit-transition: all 0.5s; /* Safari, Chrome*/
+  transition: all 0.5s; /* internet explorer */
+  -moz-transition: all 0.5s; /* firefox */
+  overflow: hidden;
+}
+
+#shopping-cart.show {
+  right: 0;
+  overflow-y: auto;
+}
+
+#shopping-cart-header {
+  overflow: hidden;
+}
+
+#shopping-cart-title {
+  float: left;
+}
+
+#shopping-cart-controls {
+  float: right;
+  padding-top: 22px;
+}
+
+#shopping-cart-content {
+  min-height: 300px;
+  width: inherit;
+}
+
+#drop-window {
+  border: 3px dashed black;
+  padding-top: 130px;
+  height: 160px;
+  text-align: center;
+}
+
+#shopping-cart-footer {
+}
+
+/* End of shopping cart */
+
+

@@ -1,0 +1,73 @@
+<input type="search" class="form-control" id="search" placeholder="Search user..." ng-model="searchText"/>
+<br />
+<button class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new user</button>
+<hr>
+
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Assets</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users | orderBy:'last_name'" data-toggle="modal" data-target="#infoModal" ng-click="setActiveItem(user)">
+        <td>{{user.username}}</td>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.assets}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{activeItem.first_name}} {{activeItem.last_name}} ({{activeItem.username}})</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="inputFirstName">First name</label>
+                        <input type="text" class="form-control" ng-model="first_name" id="inputFirstName" value="{{activeItem.first_name}}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLastName">Last name</label>
+                        <input type="text" class="form-control" ng-model="last_name" id="inputLastName" value="{{activeItem.last_name}}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUserName">Username</label>
+                        <input type="text" class="form-control" ng-model="new_username" id="inputUserName" value="{{activeItem.username}}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUserName">Email</label>
+                        <input type="email" class="form-control" ng-model="email" id="inputEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" ng-model="new_password" id="inputPassword" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone">Phone</label>
+                        <input type="tel" class="form-control" ng-model="phone" id="inputPhone" required />
+                    </div>
+                    <input type="submit" class="btn" value="Update" ng-click="updateUser(activeItem, new_username, new_password, first_name, last_name, email, phone)" />
+                </form>
+                <hr>
+                Current assets: {{activeItem.assets}}<br />
+                <form class="form-inline">
+                    <input type="text" class="form-control" id="inputAssets" ng-model="assets" />
+                    <button type="submit" class="btn btn-success" ng-click="increaseAssets(activeItem, assets)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add credits</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" ng-click="deleteUser(activeItem)" data-dismiss="modal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete user</button>
+            </div>
+        </div>
+    </div>
+</div>

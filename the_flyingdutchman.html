@@ -1,0 +1,187 @@
+<html>
+  <head>
+      <link rel="stylesheet" type="text/css" href="the_flyingdutchman.css">
+      <link rel="stylesheet" type="text/css" href="css/animate.css">
+      <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.js"></script>
+    <script type="text/javascript" src="the_flyingdutchman.js"></script>
+      <!--<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
+  </head>
+  <body ng-app="app" ng-controller="beerlistcontroller">
+
+
+     <!-- Front page view -->
+
+   <div id="front-page">
+     <div class="header">
+       <div class="titel">
+        <h1>The Flying Dutchman</h1>
+        <p>-In the heavy wake of the storm</p>
+        </div>
+       <div class="top-right-box">
+           <div class="user-box">
+               <span class="username-label" ng-show="user != null"><span class="lang" tkey="hi">Hi</span>, {{user.first_name}}!</span><br />
+               <a href="#" ng-click="logout()" ng-show="loggedIn" class="lang" tkey="logout">{{lang.logout}}</a>
+           </div>
+           <div class="icon-box">
+               <div class="VIP-Login animated bounceInDown" ng-click="loggedIn ? showProfile = !showProfile : showLogin = !showLogin"></div>
+               <div ng-click="setLanguageJS('sv')" class="flag flag-swedish animated bounceInDown"></div>
+               <div ng-click="setLanguageJS('en')" class="flag flag-english animated bounceInDown"></div>
+           </div>
+       </div>
+     </div>
+
+     <div id="introduction-container">
+         <h1 class="lang" tkey="introHeading">{{lang.introHeading}}</h1>
+         <p class="lang" tkey="introText">{{lang.introText}}</p>
+     </div>
+   </div>
+
+    <!-- End of Front Page view -->
+
+     <!-- Beer list view -->
+
+    <div id="beer-list" ng-class="{expanded: selected}">
+      <div class="top-shelf">
+        <div class="beer-button" ng-click="showBeerList()"><b class="lang" tkey="beerList">{{lang.beerList}}</b></div>
+        <div class="filter-button" ng-click="showFilter = !showFilter" ng-show="selected">
+        </div>
+      </div>
+      <div class="filter-shelf" ng-class="{expanded: showFilter}">
+          <div class="animated bounceIn" ng-show="showFilter">
+            <div class="searchBeer">
+                  <label><b><span class="lang" tkey="search">{{lang.search}}</span>:</b></label>
+                  <input type="text" ng-model="searchPhrase" placeholder="..." style="width: 200px">
+            </div>
+            <div>
+                <label for="selectSortmode"><b><span class="lang" tkey="sortBy">{{lang.sortBy}}</span>:</b></label>
+                <select ng-model="sortmode" id="selectSortmode" ng-options="sortmode.name for sortmode in sortmodes"></select>
+            </div>
+            <div>
+                <input type="checkbox" id="glutenFree" ng-model="showOnlyGlutenFree" />
+                <label for="glutenFree" class="lang" tkey="glutenFree">{{lang.glutenFree}}</label>
+            </div>
+            <div>
+                <input type="checkbox" id="outOfStock" ng-model="showOutOfStock" />
+                <label for="outOfStock" class="lang" tkey="showOutOfStock">{{lang.showOutOfStock}}</label>
+            </div>
+          </div>
+      </div>
+      <div class="item" ng-repeat="item in preppedItems | orderBy:sortmode.value | filter:searchPhrase | filter: (showOnlyGlutenFree || '') && isGlutenFree()" ng-show="selected && (item.count < 1 ? showOutOfStock : true)">
+          <div id="{{item.nr}}" draggable drag="showCart">
+          <!--
+            <div class="beer-image" style="float:left">
+              <img class="beerImg" src="http://www.beer100.com/images/beermug.jpg" draggable="false" width="50" height="50">
+            </div>
+            <div class="beer-text" style="float:left">
+                <b>{{item.namn}}</b> {{item.namn2}}: {{item.pub_price}} Kr
+            </div>
+            -->
+          <div class="beer">
+            <div class="beerImg"></div>
+            <div class="beerText"><b>{{item.namn}}</b> {{item.namn2}}: {{item.prisinklmoms}} Kr
+              <span ng-if="item.ekologisk == '1'" class="label-organic"><b class="lang" tkey="organic">{{lang.organic}}</b></span>
+              <span ng-if="item.count < 1" class="label-out-of-stock"><b class="lang" tkey="outOfStock">{{lang.outOfStock}}</b></span>
+            </div>
+          </div>
+          <div class="alcoholVol">
+            <div class="alcoholVolImg"></div>
+            <div class="alcoholVolText">{{item.alkoholhalt}}</div>
+          </div>
+          <div class="country">
+            <div class="countryImg"></div>
+            <div class="countryName"> {{item.ursprunglandnamn}} </div>
+          </div>
+          <div class="beerInfo" ng-class="{expanded: showBeerInfo}">
+            <div class="beerInfoImg" ng-click="showBeerInfo = !showBeerInfo"></div>
+            <div class="beerInfoText animated bounceIn" ng-show="showBeerInfo"> {{item.varugrupp}} {{item.argang}} {{item.volumiml}} {{item.ursprung}} {{item.producent}} {{item.leverantor}}</div>
+          </div>
+          </div>
+        <!--
+          <div>
+              <b>{{item.namn}}</b> {{item.namn2}}
+              <span ng-if="item.ekologisk == '1'" class="label-organic"><b class="lang" tkey="organic">{{lang.organic}}</b></span>
+              <span ng-if="item.count < 0" class="label-out-of-stock"><b class="lang" tkey="outOfStock">{{lang.outOfStock}}</b></span><br />
+              {{item.varugrupp}}, {{item.argang}}, {{item.alkoholhalt}}<br />
+              {{item.prisinklmoms}} kr
+          </div>
+          -->
+      </div>
+    </div>
+
+    <!-- End of Beer List view -->
+
+  <!-- Shopping cart -->
+
+     <div id="shopping-cart-tab" class="animated bounceInRight" ng-click="cartShown = !cartShown" ng-class="{expanded: cartShown}" ng-show="selected">
+         <span class="lang" tkey="orderTab">{{lang.orderTab}}</span>
+     </div>
+    <div id="shopping-cart" ng-class="{show: cartShown && selected}" droppable drop="drop">
+        <div id="shopping-cart-header">
+        <div id="shopping-cart-title">
+            <h2 class="lang" tkey="cart">{{lang.cart}}</h2>
+        </div>
+        <div id="shopping-cart-controls">
+            <button class="lang" tkey="undo" ng-click="undo()" ng-disabled="undos.length < 1">{{lang.undo}}</button>
+            <button class="lang" tkey="redo" ng-click="redo()" ng-disabled="redos.length < 1">{{lang.redo}}</button>
+            <button class="lang" tkey="clear" ng-click="clearCart()" ng-disabled="cartLength() < 1">{{lang.clear}}</button>
+        </div>
+        </div>
+        <div id="shopping-cart-content">
+            <div id="drop-window" class="lang" tkey="dropbox" ng-show="cartLength() < 1">{{lang.dropbox}}</div>
+            <div class="item animated bounceIn" ng-repeat="cartItem in cart | toArray | orderBy:'item.namn'">
+                <b>{{cartItem.item.namn}}</b> {{cartItem.item.namn2}}
+            <span style="float: right">{{cartItem.quantity}}
+              <button ng-click="removeFromCart(cartItem.item)">-</button>
+              <button ng-click="addToCart(cartItem.item)">+</button>
+            </span>
+                <br />
+                {{cartItem.item.prisinklmoms}} Kr * {{cartItem.quantity}} St
+            </div>
+        </div>
+        <div id="shopping-cart-footer">
+            <hr />
+            <b><span class="lang" tkey="totalSum">{{lang.totalSum}}</span>: {{cartSum}} Kr</b>
+            <center>
+                <button class="lang" tkey="order" ng-click="loggedIn ? order() : showLogin = true" ng-disabled="cartLength() < 1">{{lang.order}}</button>
+            </center>
+        </div>
+
+    </div>
+
+   <!-- End of shopping-cart -->
+
+     <!-- Popup windows -->
+
+     <!--<div class="beerlist-button" ng-click="showBeerList()"><p><b>Beer List</b></p>-->
+     <div class="popup-window login animated bounceIn" ng-show="showLogin">
+         <form>
+             <div class="head"><b class="lang" tkey="loginHead">{{lang.loginHead}}</b> [<a href="#" ng-click="showLogin = false">x</a>]</div>
+             <p style="text-align: center;" class="message-error" ng-show="loginError != null">{{loginError}}</p>
+             <div class="user" ng-show="showLogin">
+                 <label class="userLabel"><b style="float: right"><span class="lang" tkey="userName">{{lang.userName}}</span>:</b></label>
+                 <input type="text" ng-model="username" placeholder="..." style="width: 200px; position: absolute">
+             </div>
+             <div class="password" ng-show="showLogin">
+                 <label class="passLabel"><b style="float: right"><span class="lang" tkey="password">{{lang.password}}</span>:</b></label>
+                 <input type="password" ng-model="password" placeholder="..." style="width: 200px; position: absolute">
+             </div>
+             <br />
+             <center><button type="submit" ng-click="login(username, password)" class="lang" tkey="loginbutton">{{lang.loginbutton}}</button></center>
+         </form>
+     </div>
+
+     <div class="popup-window animated bounceIn" ng-show="showProfile">
+         <div class="head"><b class="lang" tkey="profile">{{lang.profile}}</b> [<a href="#" ng-click="showProfile = false">x</a>]</div>
+         <div class="profile-info">
+             <p>{{user.first_name}} {{user.last_name}}</p>
+             <b class="lang" tkey="assets">{{lang.assets}}</b>: {{user.assets}} kr
+         </div>
+     </div>
+
+     <!-- End of popup windows -->
+
+
+  </body>
+</html>

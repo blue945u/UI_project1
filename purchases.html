@@ -1,0 +1,30 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Name 2</th>
+        <th>Transaction ID</th>
+        <th>User ID</th>
+        <th>Beer ID</th>
+        <th>Timestamp</th>
+        <th>Price</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Username</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="purchase in purchases">
+        <td>{{purchase.namn}}</td>
+        <td>{{purchase.namn2}}</td>
+        <td>{{purchase.transaction_id}}</td>
+        <td>{{purchase.user_id}}</td>
+        <td>{{purchase.beer_id}}</td>
+        <td>{{purchase.timestamp}}</td>
+        <td>{{purchase.price}}</td>
+        <td>{{purchase.first_name}}</td>
+        <td>{{purchase.last_name}}</td>
+        <td>{{purchase.username}}</td>
+    </tr>
+    </tbody>
+</table>
